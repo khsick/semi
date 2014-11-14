@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+ <html>
+   <head>
+     <meta charset="EUC-KR">
+     <title>Marker animations with <code>setTimeout()</code></title>
+     <style>
+       html, body, #map-canvas {
+         height: 100%;
+         margin: 0px;
+         padding: 0px
+       }
+       #panel {
+         position: absolute;
+         top: 5px;
+         left: 50%;
+         margin-left: -180px;
+         z-index: 5;
+         background-color: #fff;
+         padding: 5px;
+         border: 1px solid #999;
+       }
+     </style>
+     <script src="https://maps.googleapis.com/maps/api/js?sensor=true"></script>
+     <script>
+
+var myLatlng = new google.maps.LatLng(33.444736, 126.732199);
+ var parliament = new google.maps.LatLng(33.444736, 126.732199);
+ var marker;
+ var map;
+
+var neighborhoods = [
+ new google.maps.LatLng(33.507127, 126.493545),
+   new google.maps.LatLng(33.556775, 126.760047),
+   new google.maps.LatLng(33.458156, 126.941751),
+   new google.maps.LatLng(33.434952, 126.922868),
+   new google.maps.LatLng(33.244864, 126.571738)
+ ];
+
+
+ var markers = [
+  { lat: 33.507127, lng: 126.493545,
+  name: "남한산성 새마을금고",
+info: "<strong>남한산성 새마을금고<strong>"
+  },
+  { lat: 33.556775, lng: 126.760047,
+  name: "남한산초등학교",
+info: "<strong>남한산초등학교<strong><br/>"
+  },
+  { lat: 33.458156, lng: 126.941751,
+  name: "침괘정",
+info: "<strong>침괘정<strong><br/>"
+  },
+  { lat: 33.434952, lng: 126.922868,
+  name: "남한산성 파출소",
+info: "<strong>남한산성 파출소<strong><br/>"
+  },
+  { lat: 33.244864, lng: 126.571738,
+  name: "남한산성 정보센터",
+info: "<strong>남한산성 정보센터<strong><br/>"
+  }
+  ];
+  
+ var iterator = 0;
+ var map;
+
+
+ function initialize() {
+   var mapOptions = {
+     zoom: 11,
+     center: myLatlng
+   };
+
+  map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+   marker=[];
+ }
+
+function drop() {
+   clearMarker();
+   iterator = 0;
+   for (var i = 0; i < markers.length; i++) {
+     setTimeout(function() {
+       addMarker();
+     }, i * 400);
+   }
+ }
+
+function addMarker() {
+   var markerInfo = markers[iterator++];
+   var thisMarker = new google.maps.Marker(
+   {
+    position: new google.maps.LatLng(markerInfo.lat, markerInfo.lng),
+    map: map,
+    title: markerInfo.name,
+    draggable: true,
+    animation: google.maps.Animation.DROP,
+    info: markerInfo.info
+   });
+   marker.push(thisMarker);
+   google.maps.event.addListener(thisMarker, 'click',
+   function()
+   {
+    if( ! this.getMap()._infoWindow ) this.getMap()._infoWindow = new google.maps.InfoWindow();
+    this.getMap()._infoWindow.close();
+    this.getMap()._infoWindow.setContent( this.info );
+    this.getMap()._infoWindow.open(this.getMap(), this);
+   }
+   );
+ }
+
+function clearMarker(){
+  if(map._infoWindow ) map._infoWindow.close();
+  for(var i=0; i<marker.length; i++) marker[i].setMap(null);
+  marker = [];
+ }
+
+google.maps.event.addDomListener(window, 'load', initialize);
+
+    </script>
+   </head>
+   <body>
+     <div id="panel" style="margin-left: -52px">
+       <button id="drop" onclick="drop()">Drop Markers</button>
+      </div>
+     <div id="map-canvas"></div>
+   </body>
+ </html>

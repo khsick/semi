@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+<title>Insert title here</title>
+<script >
+
+function fnfruit(){
+	//온체인지 크롬에서 안됨.
+	var idx=document.getElementById("fruit").selectedIndex;
+	var val=document.getElementById("fruit").options(idx).value;
+	alert(val+"을/를 선택 하셨습니다.");
+}
+var seoul = new Array("강서", "양천", "구로", "영등포", "금천", "관악", "동작", "서초", "강남", "송파", "강동", "도봉", "강북", "노원", "은평", "성북", "종로", "동대문", "중랑", "서대문", "중", "성동", "광진", "용산", "마포");
+var gyunggi = new Array("의정부시", "부천시", "수원시", "용인시", "안산시");
+var busan = new Array("의정부시", "부천시", "수원시", "용인시", "안산시");
+var daegu = new Array("의정부시", "부천시", "수원시", "용인시", "안산시");
+var daejun = new Array("의정부시", "부천시", "수원시", "용인시", "안산시");
+var ulsan = new Array("의정부시", "부천시", "수원시", "용인시", "안산시");
+var inchun= new Array("의정부시", "부천시", "수원시", "용인시", "안산시");
+var gunlabuk= new Array("의정부시", "부천시", "수원시", "용인시", "안산시");
+function fnCity(f){
+	if(f.city.selectedIndex==1){
+		for(var v in seoul){
+			f.gu.options[v].text=seoul[v];			
+		}
+	}else if(f.city.selectedIndex==2){
+		for(var v in gyunggi){
+			f.gu.options[v].text=gyunggi[v];			
+		}
+	}else if(f.city.selectedIndex==3){
+		for(var v in busan){
+			f.gu.options[v].text=busan[v];			
+		}
+	}else if(f.city.selectedIndex==4){
+		for(var v in daejun){
+			f.gu.options[v].text=daejun[v];			
+		}
+	}else if(f.city.selectedIndex==5){
+		for(var v in ulsan){
+			f.gu.options[v].text=ulsan[v];			
+		}
+	}else if(f.city.selectedIndex==6){
+		for(var v in inchun){
+			f.gu.options[v].text=inchun[v];			
+		}
+	}else if(f.city.selectedIndex==7){
+		for(var v in gyunggi){
+			f.gu.options[v].text=gunlabuk[v];			
+		}
+	}
+}
+
+</script>
+</head>
+<body>
+	과일 선택이 변경되면 선택한 과일을 경고창에 출력한다.
+	<br /> 과일:
+	<select id="fruit" onchange="fnfruit()">
+		<option value="">과일을 선택하세요</option>
+		<option value="딸기">딸기</option>
+		<option value="바나나">바나나</option>
+		<option value="사과">사과</option>
+		<option value="배">배</option>
+		<option value="귤">귤</option>
+		<option value="수박">수박</option>
+	</select>
+	<br />
+	<br />
+	<form name="f1">
+		<select name="city" onchange="fnCity(this.form)">
+			<option value="">지역을 선택하세요</option>
+			<option value="서울">서울</option>
+			<option value="경기">경기</option>
+			<option value="대전">대전</option>
+			<option value="대구">대구</option>
+			<option value="부산">부산</option>
+			<option value="울산">울산</option>
+			<option value="충청북도">충청북도</option>
+			<option value="충청남도">충청남도</option>
+			<option value="전라북도">전라북도</option>
+	
+			
+			
+		</select> &nbsp;&nbsp;&nbsp; 
+		<select name="gu" onchange="fnCity()">
+			<option></option>
+			<option></option>
+			<option></option>
+			<option></option>
+			<option></option>
+				<option></option>
+			<option></option>
+			<option></option>
+			<option></option>
+			<option></option>
+				<option></option>
+			<option></option>
+			<option></option>
+			<option></option>
+			<option></option>
+			
+		</select>
+
+
+	</form>
+
+</body>
+</html>
